@@ -52,7 +52,7 @@ def auto_send_quote():
         subs = [i for i in data]
 
     for s in subs:
-        bot.send_message(s, random_quote() + '\n\n"Кто я? Инструкция к реальности. lee"')
+        bot.send_message(s, random_quote())
         print(f'Quote was automatically sent to Users: {subs}')
 
     random_time()
@@ -61,7 +61,7 @@ def auto_send_quote():
 
 # Manually sending quotes
 def one_more_quote(user):
-    bot.send_message(user, random_quote() + '\n\n"Кто я? Инструкция к реальности. lee"')
+    bot.send_message(user, random_quote())
     print(f'Quote was manually sent to User: {user}')
 
 
@@ -97,8 +97,7 @@ def add_new_user_to_json(message):
 def start_handler(message):
     bot.send_message(
         message.chat.id,
-        'Привет! Я - бот, который будет присылать тебе каждый день, в случайное время с 10 до 23 цитату из книги:'
-        '\n\n"Кто я? Инструкция к реальности. lee"',
+        'Привет! Я - бот, который будет присылать тебе каждый день, в случайное время с 10 до 23 цитату об освобождении.',
         reply_markup=markup
     )
     add_new_user_to_json(message)
@@ -133,4 +132,5 @@ def messages_handler(message):
 
 scheduler.add_job(auto_send_quote, trigger='cron', hour=hour, minute=minute, timezone='Europe/Riga', id='01')
 scheduler.start()
+
 bot.polling()
