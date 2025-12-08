@@ -289,5 +289,6 @@ info = [
 
 
 def random_quote():
-    return info[randint(0, 247)]
+    return info[randint(0, 138)]
+
 
