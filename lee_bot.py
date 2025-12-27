@@ -12,6 +12,8 @@ ver 3.0 - One more quote manually +
 
 
 import telebot
+import time
+import traceback
 from environs import Env
 from random import randint
 from datetime import datetime
@@ -133,4 +135,17 @@ def messages_handler(message):
 scheduler.add_job(auto_send_quote, trigger='cron', hour=hour, minute=minute, timezone='Europe/Riga', id='01')
 scheduler.start()
 
-bot.polling()
+def start_polling():
+    while True:
+        try:
+            print('Bot started polling...')
+            bot.polling(none_stop=True, timeout=60)
+        except Exception as e:
+            print(f'Polling error: {e}')
+            bot.stop_polling()
+            time.sleep(15)  # Пауза перед перезапуском
+            print('Restarting polling...')
+
+if __name__ == '__main__':
+    import time  # Добавь import в начало файла, если его нет
+    start_polling()
